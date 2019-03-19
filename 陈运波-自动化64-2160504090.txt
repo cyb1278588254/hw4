@@ -1,0 +1,166 @@
+T1.m
+%中值滤波器平滑测试图像test1
+[I,map]=imread('test1.pgm','pgm');
+figure(1);
+subplot(2,2,1);
+imshow(I,map);
+title('test1.pgm原始图像');
+J1=medfilt2(I,[3 3]); 
+subplot(2,2,2);
+imshow(J1,map);
+title('中值滤波平滑后的test1.pgm(3x3)');
+J2=medfilt2(I,[5 5]); 
+subplot(2,2,3);
+imshow(J2,map);
+title('中值滤波平滑后的test1.pgm(5x5)');
+J3=medfilt2(I,[7 7]); 
+subplot(2,2,4);
+imshow(J3,map);
+title('中值滤波平滑后的test1.pgm(7x7)');
+
+%中值滤波器平滑测试图像test1
+[I2,map2]=imread('test2.tif','tif');
+figure(2);
+subplot(2,2,1);
+imshow(I2,map2);
+title('test2.tif原始图像');
+J4=medfilt2(I2,[3 3]); 
+subplot(2,2,2);
+imshow(J4,map2);
+title('中值滤波平滑后的test2.tif(3x3)');
+J5=medfilt2(I2,[5 5]); 
+subplot(2,2,3);
+imshow(J5,map2);
+title('中值滤波平滑后的test2.tif(5x5)');
+J6=medfilt2(I2,[7 7]); 
+subplot(2,2,4);
+imshow(J6,map2);
+title('中值滤波平滑后的test2.tif(7x7)');
+
+%高斯滤波器平滑测试图像test1
+[I,map]=imread('test1.pgm','pgm');
+figure(1);
+subplot(2,2,1);
+imshow(I,map);
+title('test1.pgm原始图像');
+h1=fspecial('gaussian',[3 3],1.5);
+B1=imfilter(I,h1,'conv');
+subplot(2,2,2);
+imshow(B1,map);
+title('高斯滤波平滑后的test1.pgm(3x3)');
+h2=fspecial('gaussian',[5 5],1.5);
+B2=imfilter(I,h2,'conv');
+subplot(2,2,3);
+imshow(B2,map);
+title('高斯滤波平滑后的test1.pgm(5x5)');
+h3=fspecial('gaussian',[7 7],1.5);
+B3=imfilter(I,h3,'conv');
+subplot(2,2,4);
+imshow(B3,map);
+title('高斯滤波平滑后的test1.pgm(7x7)');
+
+%高斯滤波器平滑测试图像test2
+[I2,map2]=imread('test2.tif','tif');
+figure(2);
+subplot(2,2,1);
+imshow(I2,map2);
+title('test2.tif原始图像');
+h4=fspecial('gaussian',[3 3],1.5);
+B4=imfilter(I2,h4,'conv');
+subplot(2,2,2);
+imshow(B4,map2);
+title('高斯滤波平滑后的test2.tif(3x3)');
+h5=fspecial('gaussian',[5 5],1.5);
+B5=imfilter(I2,h5,'conv');
+subplot(2,2,3);
+imshow(B5,map);
+title('高斯滤波平滑后的test2.tif(5x5)');
+h6=fspecial('gaussian',[7 7],1.5);
+B6=imfilter(I2,h6,'conv');
+subplot(2,2,4);
+imshow(B6,map2);
+title('高斯滤波平滑后的test2.tif(7x7)');
+
+T2
+unsharp masking.m
+I=imread('test3_corrupt.pgm');
+I2=imread('test4 copy.bmp');
+A=single(I);
+A2=single(I2);
+h=fspecial('gaussian',5,3);  
+B=imfilter(A,h);        %模糊图像
+B2=imfilter(A2,h);      %模糊图像
+f=A-B;                  %得到模板
+f2=A2-B2;               %得到模板
+g=A+f;                  %非锐化掩蔽
+g2=A2+f2;               %非锐化掩蔽
+figure;
+subplot(2,2,1);
+imshow(I);
+title('test3原图像');
+subplot(2,2,2);
+imshow(g,[ ]);
+title('test3经过非锐化掩蔽处理后的图像');
+subplot(2,2,3);
+imshow(I2);
+title('test4原图像');
+subplot(2,2,4);
+imshow(g2,[ ]);
+title('test4经过非锐化掩蔽处理后的图像');
+
+Sobel edge detector.m
+I=imread('test3_corrupt.pgm');
+I2=imread('test4 copy.bmp','bmp'); 
+figure;
+subplot(2,2,1);
+imshow(I);
+title('原图像test3_corrupt.pgm');
+BW=edge(I,'sobel');
+subplot(2,2,2);
+imshow(BW);
+title('sobel边缘检测test3_corrupt.pgm');
+subplot(2,2,3);
+imshow(I2);
+title('原图像test4 copy.bmp');
+BW2=edge(I2,'sobel');
+subplot(2,2,4);
+imshow(BW2);
+title('sobel边缘检测test4 copy.bmp');
+
+Laplace edge detection.m
+I=imread('test3_corrupt.pgm');
+I2=imread('test4 copy.bmp','bmp'); 
+figure;
+subplot(2,2,1);
+imshow(I);
+title('原图像test3_corrupt.pgm');
+BW=edge(I,'log');
+subplot(2,2,2);
+imshow(BW);
+title('Laplace边缘检测test3_corrupt.pgm');
+subplot(2,2,3);
+imshow(I2);
+title('原图像test4 copy.bmp');
+BW2=edge(I2,'log');
+subplot(2,2,4);
+imshow(BW2);
+title('Laplace边缘检测test4 copy.bmp');
+
+Canny algorithm.m
+I=imread('test3_corrupt.pgm');
+I2=imread('test4 copy.bmp','bmp'); 
+figure;
+subplot(2,2,1);
+imshow(I);
+title('原图像test3_corrupt.pgm');
+BW=edge(I,'canny');
+subplot(2,2,2);
+imshow(BW);
+title('Canny边缘检测test3_corrupt.pgm');
+subplot(2,2,3);
+imshow(I2);
+title('原图像test4 copy.bmp');
+BW2=edge(I2,'canny');
+subplot(2,2,4);
+imshow(BW2);
+title('Canny边缘检测test4 copy.bmp');
